@@ -64,6 +64,9 @@ function get_singbox_reality($decoded_config){
 }
 
 function get_singbox_pbk($decoded_config){
+    if (!isset($decoded_config["params"]["pbk"]) || $decoded_config["params"]["pbk"] === ""){
+        return null;
+    }
     return $decoded_config["params"]["pbk"];
 }
 
@@ -96,6 +99,9 @@ function vless_reality_json($vless_uri){
 
     if ($reality === "true") {
         $pbk = get_singbox_pbk($decoded_config);
+        if ($pbk === null) {
+            return null;
+        }
         $sid = get_singbox_sid($decoded_config);
         $tls = "true";
         $fingerprint = isset($decoded_config["params"]["fp"]) && $decoded_config["params"]["fp"] !== "random" && $decoded_config["params"]["fp"] !== "ios" ? $decoded_config["params"]["fp"] : "chrome";
@@ -115,7 +121,9 @@ function generate_output($input, $output){
         if (stripos($config, "security=reality")){
             $json_output = vless_reality_json($config);
         }
-        $outbound[] = json_decode($json_output, true);
+        if ($json_output !== null){
+            $outbound[] = json_decode($json_output, true);
+        }
     }
     $json_map = ["nekobox_old" => "nekobox_1.1.7.json", "nekobox_new" => "nekobox_1.1.8.json", "sfi" => "sfi.json"];
     $template = json_decode(file_get_contents("modules/singbox/" . $json_map[$output]), true);
