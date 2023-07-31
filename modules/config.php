@@ -90,6 +90,10 @@ $Types = [
     "Royalping_ir" => ["vmess"],
     "v2rayng_vpnrog" => ["vless"],
     "v2rayng_config_amin" => ["vless", "vmess"]
+    "ho3ino00" => ["vmess", "vless", "ss"]
+    "socks5_bott" => ["vmess", "vless", "ss", "trojan"]
+    "freev2ray7611" => ["vmess", "vless"]
+
 ];
 
 $donated_subscription = [
